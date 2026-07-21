@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cash Car Finder - Aggregated used car searches, reliability catalog, recalls decoder, and pre-purchase inspection checklists. Find cheap, reliable commuter cars under budget.">
+  <title>Cash Car Finder | Reliable Used Cars Under Budget</title>
+  <!-- Tailwind is avoided as per guidelines; Vanilla CSS is inside styles.css -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-car-rear"></i>
+        </div>
+        <span>CashCar</span>Finder
+      </a>
+      <nav>
+        <button class="nav-tab active" data-tab="search-tab" id="nav-search-tab">
+          <i class="fa-solid fa-magnifying-glass"></i> Search Generator
+        </button>
+        <button class="nav-tab" data-tab="parser-tab" id="nav-parser-tab">
+          <i class="fa-solid fa-paste"></i> Copy-Paste Aggregator
+        </button>
+        <button class="nav-tab" data-tab="catalog-tab" id="nav-catalog-tab">
+          <i class="fa-solid fa-book"></i> Reliability Guide
+        </button>
+        <button class="nav-tab" data-tab="checklist-tab" id="nav-checklist-tab">
+          <i class="fa-solid fa-list-check"></i> Inspection Guide
+        </button>
+        <button class="nav-tab" data-tab="vin-tab" id="nav-vin-tab">
+          <i class="fa-solid fa-barcode"></i> VIN Auditor
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- TAB 1: SEARCH GENERATOR -->
+    <section id="search-tab" class="tab-content active">
+      <div class="page-intro">
+        <h1>Smart Search Link Generator</h1>
+        <p>Set your target budget and location to build highly optimized search links that filter out lemon cars and rebuilds.</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <aside class="card">
+          <h2 class="card-title"><i class="fa-solid fa-sliders"></i> Filter Criteria</h2>
+          <form id="search-form" onsubmit="event.preventDefault();">
+            
+            <div class="form-group">
+              <label class="form-label" for="zipcode">Starting ZIP Code</label>
+              <div class="input-container">
+                <i class="fa-solid fa-location-dot input-icon"></i>
+                <input type="text" id="zipcode" class="form-input" placeholder="e.g. 30303" value="30303">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="radius">Radius (Miles)</label>
+              <div class="input-container">
+                <i class="fa-solid fa-circle-notch input-icon"></i>
+                <input type="number" id="radius" class="form-input" placeholder="e.g. 50" value="50" min="5" max="500">
+              </div>
+            </div>
+
+            <div class="budget-row">
+              <div class="form-group">
+                <label class="form-label" for="min-price">Min Budget</label>
+                <div class="input-container">
+                  <i class="fa-solid fa-dollar-sign input-icon"></i>
+                  <input type="number" id="min-price" class="form-input" placeholder="Min" value="800" min="0">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="max-price">Max Budget</label>
+                <div class="input-container">
+                  <i class="fa-solid fa-dollar-sign input-icon"></i>
+                  <input type="number" id="max-price" class="form-input" placeholder="Max" value="1200" min="100">
+                </div>
+              </div>
+            </div>
+
+            <div class="toggle-group">
+              <label class="toggle-item">
+                <div class="toggle-label">
+                  <span class="toggle-title">Clean Title Only</span>
+                  <span class="toggle-desc">Filters out salvage & rebuilt cars</span>
+                </div>
+                <div class="switch">
+                  <input type="checkbox" id="clean-title" checked>
+                  <span class="slider"></span>
+                </div>
+              </label>
+
+              <label class="toggle-item">
+                <div class="toggle-label">
+                  <span class="toggle-title">Owner-Only Listings</span>
+                  <span class="toggle-desc">Excludes dealer markups & doc fees</span>
+                </div>
+                <div class="switch">
+                  <input type="checkbox" id="owner-only" checked>
+                  <span class="slider"></span>
+                </div>
+              </label>
+
+              <label class="toggle-item">
+                <div class="toggle-label">
+                  <span class="toggle-title font-bold">Avoid Project Cars</span>
+                  <span class="toggle-desc">Excludes "needs head gasket", "not running", "parts only"</span>
+                </div>
+                <div class="switch">
+                  <input type="checkbox" id="avoid-projects" checked>
+                  <span class="slider"></span>
+                </div>
+              </label>
+            </div>
+
+            <button type="button" class="btn" style="margin-top: 1.5rem;" id="btn-build-links">
+              <i class="fa-solid fa-arrows-rotate"></i> Update Search Links
+            </button>
+          </form>
+        </aside>
+
+        <div class="search-hub">
+          <div class="card">
+            <h2 class="card-title"><i class="fa-solid fa-arrow-up-right-from-square"></i> Deep Search Launchpad</h2>
+            <div class="links-grid">
+              
+              <div class="card link-card" id="cl-card">
+                <div class="link-card-header">
+                  <div class="link-card-meta">
+                    <span class="platform-badge platform-cl">Craigslist</span>
+                    <span class="platform-title">Atlanta Classifieds</span>
+                    <p class="platform-desc">Best for direct-to-owner cheap cash sales.</p>
+                  </div>
+                </div>
+                <div class="link-card-action">
+                  <a href="#" target="_blank" class="btn-visit" id="link-cl">
+                    Search Craigslist <i class="fa-solid fa-square-arrow-up-right"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="card link-card" id="fb-card">
+                <div class="link-card-header">
+                  <div class="link-card-meta">
+                    <span class="platform-badge platform-fb">Facebook</span>
+                    <span class="platform-title">Marketplace Cars</span>
+                    <p class="platform-desc">Largest modern listing inventory for private sellers.</p>
+                  </div>
+                </div>
+                <div class="link-card-action">
+                  <a href="#" target="_blank" class="btn-visit" id="link-fb">
+                    Search FB Marketplace <i class="fa-solid fa-square-arrow-up-right"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="card link-card" id="at-card">
+                <div class="link-card-header">
+                  <div class="link-card-meta">
+                    <span class="platform-badge platform-at">AutoTempest</span>
+                    <span class="platform-title">All-in-One Aggregator</span>
+                    <p class="platform-desc">Combines eBay, Cars.com, and local classified sites.</p>
+                  </div>
+                </div>
+                <div class="link-card-action">
+                  <a href="#" target="_blank" class="btn-visit" id="link-at">
+                    Search AutoTempest <i class="fa-solid fa-square-arrow-up-right"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="card link-card" id="eb-card">
+                <div class="link-card-header">
+                  <div class="link-card-meta">
+                    <span class="platform-badge platform-eb">eBay Motors</span>
+                    <span class="platform-title">Auctions & Classifieds</span>
+                    <p class="platform-desc">Great for finding bargains and clean title cruisers.</p>
+                  </div>
+                </div>
+                <div class="link-card-action">
+                  <a href="#" target="_blank" class="btn-visit" id="link-eb">
+                    Search eBay Motors <i class="fa-solid fa-square-arrow-up-right"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="card link-card" id="cg-card">
+                <div class="link-card-header">
+                  <div class="link-card-meta">
+                    <span class="platform-badge platform-cg">CarGurus</span>
+                    <span class="platform-title">Private & Dealer Search</span>
+                    <p class="platform-desc">Checks deals against market values to identify bargains.</p>
+                  </div>
+                </div>
+                <div class="link-card-action">
+                  <a href="#" target="_blank" class="btn-visit" id="link-cg">
+                    Search CarGurus <i class="fa-solid fa-square-arrow-up-right"></i>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Real-Time Local Scraper Results (connected to server.js) -->
+          <div class="card realtime-results-container">
+            <div class="results-header">
+              <h2 class="card-title"><i class="fa-solid fa-bolt"></i> Live Craigslist Aggregated Results</h2>
+              <div class="status-indicator">
+                Local Server: <span class="status-dot" id="server-status-dot"></span>
+                <span id="server-status-text">Disconnected</span>
+              </div>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;" id="server-helper-text">
+              Launch the local scraping server to view Craigslist listings integrated directly into this page in real time. Or, use the Copy-Paste Aggregator tab.
+            </p>
+            <div class="parsed-listings-list" id="realtime-listings-list">
+              <div class="empty-state">
+                <i class="fa-solid fa-terminal"></i>
+                <p style="margin-top: 1rem;">To fetch live listings instantly: run <code>node server.js</code> in your terminal.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: COPY-PASTE AGGREGATOR -->
+    <section id="parser-tab" class="tab-content">
+      <div class="page-intro">
+        <h1>Copy-Paste Listing Aggregator</h1>
+        <p>Bypass scraping blocks. Copy all listings (Cmd+A / Cmd+C) from Facebook Marketplace or Craigslist results, paste below, and instantly extract a clean dashboard with built-in reliability reviews.</p>
+      </div>
+
+      <div class="copy-paste-panel">
+        <div class="card textarea-container">
+          <h2 class="card-title"><i class="fa-solid fa-clipboard"></i> Paste Search Results</h2>
+          <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">
+            Open Craigslist or FB Marketplace in a new tab, copy the page (press <code>Ctrl+A</code> then <code>Ctrl+C</code>), and paste the raw text inside this box.
+          </p>
+          <textarea id="paste-input" class="paste-textarea" placeholder="Paste listing text or HTML here... e.g. 
+2005 Toyota Corolla LE - $1,100
+50 miles away - clean title, runs good.
+2006 Nissan Altima - $900
+blown engine needs work..."></textarea>
+          <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+            <button class="btn" id="btn-parse-text"><i class="fa-solid fa-gears"></i> Parse Listings</button>
+            <button class="btn btn-secondary" id="btn-clear-paste" style="width: auto;"><i class="fa-solid fa-trash"></i> Clear</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title" style="justify-content: space-between;">
+            <span><i class="fa-solid fa-table-list"></i> Parsed & Audited Results</span>
+            <span style="font-size: 0.85rem; color: var(--text-secondary);" id="parsed-count">0 Listings</span>
+          </h2>
+          <div class="parsed-listings-list" id="parsed-listings-list">
+            <div class="empty-state">
+              <i class="fa-solid fa-paste"></i>
+              <p style="margin-top: 1rem;">No data parsed yet. Copy and paste some listings on the left to start auditing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: RELIABILITY GUIDE -->
+    <section id="catalog-tab" class="tab-content">
+      <div class="page-intro">
+        <h1>Cash Car Reliability Database</h1>
+        <p>Your cheat sheet for finding $800 to $4,000 vehicles. Learn which models can run forever on a budget and which cars are black holes for your wallet.</p>
+      </div>
+
+      <div class="catalogs-container">
+        
+        <!-- Highly Recommended Vehicles -->
+        <div>
+          <div class="catalog-header good">
+            <h2><i class="fa-solid fa-circle-check"></i> Best Bargain Commuters</h2>
+          </div>
+          <div class="catalog-list" id="good-cars-list">
+            <!-- Loaded via app.js -->
+          </div>
+        </div>
+
+        <!-- Avoid at All Costs Vehicles -->
+        <div>
+          <div class="catalog-header bad">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> Money Pits & Lemons (Avoid)</h2>
+          </div>
+          <div class="catalog-list" id="bad-cars-list">
+            <!-- Loaded via app.js -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 4: INSPECTION CHECKLIST -->
+    <section id="checklist-tab" class="tab-content">
+      <div class="page-intro">
+        <h1>Pre-Purchase Inspection Checklist</h1>
+        <p>Do not buy a cash car blindly. Take this interactive checklist with you on your mobile phone to inspect the car. Make sure to audit every item.</p>
+      </div>
+
+      <div class="checklist-container">
+        <div class="card progress-card">
+          <h3 class="card-title"><i class="fa-solid fa-chart-line"></i> Inspection Progress</h3>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="checklist-progress-bar"></div>
+          </div>
+          <div style="font-size: 0.9rem; display: flex; justify-content: space-between; font-weight: 600;">
+            <span>Complete:</span>
+            <span id="checklist-progress-text">0% (0/0 Checked)</span>
+          </div>
+          
+          <div class="checklist-nav" id="checklist-nav-menu">
+            <!-- Dynamic Category List -->
+          </div>
+          
+          <button class="btn btn-secondary" style="margin-top: 1rem;" id="btn-reset-checklist">
+            <i class="fa-solid fa-rotate-left"></i> Reset Checklist
+          </button>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title" id="checklist-section-title">Select Category</h2>
+          <div class="checklist-items" id="checklist-items-list">
+            <!-- Checkbox items loaded dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: VIN AUDITOR -->
+    <section id="vin-tab" class="tab-content">
+      <div class="page-intro">
+        <h1>Free Safety Recall & VIN Decoder</h1>
+        <p>Query the official U.S. NHTSA database. Instantly verify the exact year/make/model, check engine size, and audit all active safety recalls before checking the car.</p>
+      </div>
+
+      <div class="vin-panel">
+        <div class="card">
+          <h2 class="card-title"><i class="fa-solid fa-barcode"></i> Lookup Vehicle VIN</h2>
+          <form id="vin-form" onsubmit="event.preventDefault();">
+            <div class="form-group">
+              <label class="form-label" for="vin-input">17-Character VIN</label>
+              <div class="input-container">
+                <i class="fa-solid fa-credit-card input-icon"></i>
+                <input type="text" id="vin-input" class="form-input" placeholder="Enter 17-character VIN" style="text-transform: uppercase;" maxlength="17">
+              </div>
+            </div>
+            <button type="submit" class="btn" id="btn-lookup-vin">
+              <i class="fa-solid fa-magnifying-glass"></i> Decode & Check Recalls
+            </button>
+          </form>
+          
+          <div style="margin-top: 1.5rem; background-color: rgba(255,255,255,0.03); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem;"><i class="fa-solid fa-lightbulb" style="color: var(--color-warning);"></i> Finding the VIN</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Look at the bottom corner of the windshield on the driver's side, or on the driver's door jamb sticker. You can also find it in the seller's listing or ask them directly for it to run this safety audit.
+            </p>
+          </div>
+        </div>
+
+        <div class="card vin-results-card">
+          <h2 class="card-title"><i class="fa-solid fa-square-poll-vertical"></i> Audit Results</h2>
+          <div id="vin-loader" style="display: none; text-align: center; padding: 2rem;">
+            <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--color-accent);"></i>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">Querying NHTSA database...</p>
+          </div>
+          <div id="vin-results-content">
+            <div class="empty-state">
+              <i class="fa-solid fa-shield-halved"></i>
+              <p style="margin-top: 1rem;">Enter a VIN on the left to pull manufacturing specs and manufacturer safety recalls.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Cash Car Finding App. Made for Fall Semester 2026 prep. | Built with HTML, CSS & JS.</p>
+  </footer>
+
+  <!-- Include Frontend Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
